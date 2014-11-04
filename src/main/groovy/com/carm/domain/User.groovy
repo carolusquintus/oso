@@ -25,7 +25,7 @@ class User {
     String organizationsUrl
 
     static mapping = {
-        table 'USER_OSO '
+        table 'USER_OSO'
         id column: 'ID'
         name column: 'NAME'
         firstSurname column: 'FIRST_SURNAME'
