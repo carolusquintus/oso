@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController
 class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    String userByName(String name) {
-        def u = User.findByName(name)
-        return u ? "Hello ${u.name}" : "Person not found"
+    String userByName(/*String name*/) {
+        //def u = User.findByName(name)
+        return /*u ? "Hello ${u.name}" : */"Person not found"
     }
 }
