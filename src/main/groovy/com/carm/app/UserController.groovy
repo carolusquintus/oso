@@ -1,8 +1,9 @@
-package com.carm.web
+package com.carm.app
 
-import com.carm.domain.User
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController
  */
 
 @RestController
+@RequestMapping("/rest")
 class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    String userByName(/*String name*/) {
-        //def u = User.findByName(name)
-        return /*u ? "Hello ${u.name}" : */"Person not found"
+    @ResponseBody
+    User userByName(@RequestParam("name") String name) {
+        User u = User.findByName(name)
+        return u
     }
 }
