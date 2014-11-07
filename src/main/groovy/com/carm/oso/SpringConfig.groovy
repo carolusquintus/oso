@@ -17,10 +17,10 @@ import static org.ajar.swaggermvcui.SwaggerSpringMvcUi.*
  *
  * @author carolus
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan("com.carm.oso")
-@EnableSwagger
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan("com.carm.oso")
+//@EnableSwagger
 class SpringConfig extends WebMvcConfigurerAdapter {
 
     @Override
