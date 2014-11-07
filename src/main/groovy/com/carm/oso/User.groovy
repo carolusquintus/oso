@@ -1,4 +1,4 @@
-package com.carm.app
+package com.carm.oso
 
 import grails.persistence.Entity
 
@@ -27,9 +27,9 @@ class User implements Serializable {
     String organizationsUrl
 
     static mapping = {
-        table 'user_oso'
+        table "user_oso"
         version false
-        id column: 'id'
+        id column: "id"
         name column: 'name'
         firstSurname column: 'first_surname'
         secondSurname column: 'second_surname'
@@ -44,7 +44,6 @@ class User implements Serializable {
     }
 
     static constraints = {
-        id blank:false
         name blank:false
         firstSurname blank:false
         email blank:false
