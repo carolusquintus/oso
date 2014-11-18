@@ -28,7 +28,7 @@ class SwaggerConfig {
      SwaggerSpringMvcPlugin customImplementation(){
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiInfo(apiInfo())
-                .includePatterns("/rest/.*")
+                .includePatterns("/user/.*")
     }
 
     private ApiInfo apiInfo() {
