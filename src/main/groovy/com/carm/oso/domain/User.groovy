@@ -1,4 +1,4 @@
-package com.carm.oso
+package com.carm.oso.domain
 
 import grails.persistence.Entity
 

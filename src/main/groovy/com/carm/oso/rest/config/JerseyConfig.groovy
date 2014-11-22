@@ -1,4 +1,4 @@
-package com.carm.oso
+package com.carm.oso.rest.config
 
 import org.glassfish.jersey.server.ResourceConfig
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter
