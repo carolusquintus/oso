@@ -1,6 +1,8 @@
 package com.carm.oso.domain
 
-//import grails.persistence.Entity
+import com.wordnik.swagger.annotations.ApiModel
+import com.wordnik.swagger.annotations.ApiModelProperty
+import grails.persistence.Entity
 
 /**
  * Date: Nov 01, 2014
@@ -8,22 +10,35 @@ package com.carm.oso.domain
  * @author carolus
  */
 
-//@Entity
+@Entity
+@ApiModel(value = "User", description = "User resource for Oso App")
 class User implements Serializable {
 
     static final long serialVersionUID = 1L
 
+    @ApiModelProperty(value = "User's id", required = true)
     Integer id
+    @ApiModelProperty(value = "User's name", required = true)
     String name
+    @ApiModelProperty(value = "User's first surname", required = true)
     String firstSurname
+    @ApiModelProperty(value = "User's second surname", required = true)
     String secondSurname
+    @ApiModelProperty(value = "User's e-mail address", required = true)
     String email
+    @ApiModelProperty(value = "User's phone", required = true)
     String phone
+    @ApiModelProperty(value = "User's company", required = true)
     String companyId
+    @ApiModelProperty(value = "User's password", required = true)
     String password
+    @ApiModelProperty(value = "User's email validation", required = true)
     Boolean emailValidated
+    @ApiModelProperty(value = "User's account locked", required = true)
     Boolean accountLocked
+    @ApiModelProperty(value = "User's expiration password", required = true)
     Boolean passwordExpired
+    @ApiModelProperty(value = "User's organizations URL", required = true)
     String organizationsUrl
 
     static mapping = {

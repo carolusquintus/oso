@@ -8,7 +8,6 @@ import org.springframework.boot.context.embedded.ServletRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-
 /**
  * Date: Nov 17, 2014
  *

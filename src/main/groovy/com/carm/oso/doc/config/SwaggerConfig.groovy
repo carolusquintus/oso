@@ -17,6 +17,10 @@ import org.springframework.context.annotation.Configuration
 @EnableSwagger
 class SwaggerConfig {
 
+    public static final String SERVER_PORT = "server.port"
+    public static final String SERVER_HOST = "server.host"
+    public static final String CONTEXT_PATH = "context.path"
+
     private SpringSwaggerConfig springSwaggerConfig
 
     @Autowired
@@ -25,10 +29,10 @@ class SwaggerConfig {
     }
 
     @Bean
-     SwaggerSpringMvcPlugin customImplementation(){
+    SwaggerSpringMvcPlugin customImplementation(){
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiInfo(apiInfo())
-                .includePatterns("/user/.*")
+                .includePatterns("/rest/oso/.*")
     }
 
     private ApiInfo apiInfo() {

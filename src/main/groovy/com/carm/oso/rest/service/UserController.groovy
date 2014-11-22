@@ -1,14 +1,22 @@
-package com.carm.oso.rest.service
+package com.carm.oso
 
 import com.carm.oso.domain.User
+import com.wordnik.swagger.annotations.Api
+import com.wordnik.swagger.annotations.ApiOperation
+import com.wordnik.swagger.annotations.ApiParam
+import com.wordnik.swagger.annotations.ApiResponse
+import com.wordnik.swagger.annotations.ApiResponses
+import org.springframework.dao.DataIntegrityViolationException
 
-//import org.springframework.dao.DataIntegrityViolationException
+import javax.ws.rs.DELETE
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.QueryParam
+import javax.ws.rs.core.Response
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON
+import static javax.ws.rs.core.MediaType.TEXT_HTML
 
 /**
  * Date: Nov 01, 2014
@@ -16,15 +24,23 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON
  * @author carolus
  */
 @Path("/user")
+@Api(value = "/user", description = "Manage users")
 class UserController {
 
     @GET
     @Produces(APPLICATION_JSON)
-    User userByName(@QueryParam("name") String name) {
-        //User u = User.findByName(name)
-        User u = new User(id: 1, name: "", firstSurname: "", secondSurname: "",
-                        email: "", phone: "", companyId: "", password: "",
-                        emailValidated: false, accountLocked: true, passwordExpired: false, organizationsUrl: "")
+    @ApiOperation(
+            value = "Find user by name",
+            notes = "Find user by name",
+            response = User.class
+    )
+    @ApiResponses(
+            @ApiResponse(code = 404, message = "User with that name doesn't exists")
+    )
+    User userByName(
+            @ApiParam(value = "Name to lookup for", required = true)
+            @QueryParam("name") String name) {
+        User u = User.findByName(name)
         return u
     }
 
@@ -32,17 +48,10 @@ class UserController {
     @Path("/all")
     @Produces(APPLICATION_JSON)
     List<User> allUsers() {
-        //List<User> users = User.findAll()
-        List<User> users = [new User(id: 1, name: "", firstSurname: "", secondSurname: "",
-                            email: "", phone: "", companyId: "", password: "",
-                            emailValidated: false, accountLocked: true, passwordExpired: false, organizationsUrl: ""),
-                            new User(id: 1, name: "", firstSurname: "", secondSurname: "",
-                            email: "", phone: "", companyId: "", password: "",
-                            emailValidated: false, accountLocked: true, passwordExpired: false, organizationsUrl: "")]
+        List<User> users = User.findAll()
         return users
     }
 
-    /*
     @DELETE
     @Path("/delete")
     @Produces(TEXT_HTML)
@@ -54,7 +63,7 @@ class UserController {
         } catch (DataIntegrityViolationException e) {
             return Response.status(404).entity("Could not delete person ${user.id}").build()
         }
-    }*/
+    }
 
     /*
     //@RequestMapping(value = "/user/add", method = RequestMethod.POST)
