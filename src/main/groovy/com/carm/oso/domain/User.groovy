@@ -1,6 +1,6 @@
 package com.carm.oso.domain
 
-import grails.persistence.Entity
+//import grails.persistence.Entity
 
 /**
  * Date: Nov 01, 2014
@@ -8,7 +8,7 @@ import grails.persistence.Entity
  * @author carolus
  */
 
-@Entity
+//@Entity
 class User implements Serializable {
 
     static final long serialVersionUID = 1L

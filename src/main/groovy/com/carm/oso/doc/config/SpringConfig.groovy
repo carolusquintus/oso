@@ -1,4 +1,4 @@
-package com.carm.oso
+package com.carm.oso.doc.config
 
 import com.mangofactory.swagger.plugin.EnableSwagger
 import org.springframework.context.annotation.Bean
