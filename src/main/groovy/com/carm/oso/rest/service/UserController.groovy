@@ -8,13 +8,19 @@ import com.wordnik.swagger.annotations.ApiResponse
 import com.wordnik.swagger.annotations.ApiResponses
 import org.springframework.dao.DataIntegrityViolationException
 
+import javax.ws.rs.Consumes
 import javax.ws.rs.DELETE
+import javax.ws.rs.FormParam
 import javax.ws.rs.GET
+import javax.ws.rs.POST
+import javax.ws.rs.PUT
 import javax.ws.rs.Path
+import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.QueryParam
 import javax.ws.rs.core.Response
 
+import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON
 import static javax.ws.rs.core.MediaType.TEXT_HTML
 
@@ -53,25 +59,75 @@ class UserController {
     }
 
     @DELETE
-    @Path("/delete")
-    @Produces(TEXT_HTML)
-    Response deleteUser(@QueryParam("id") Integer id) {
+    @Path("/delete/{id}")
+    @Produces(APPLICATION_JSON)
+    Response deleteUser(@PathParam("id") Integer id) {
         try {
             User user = User.get(id)
             user.delete()
-            return Response.status(204).build()
-        } catch (DataIntegrityViolationException e) {
-            return Response.status(404).entity("Could not delete person ${user.id}").build()
+            return Response.status(204).entity("User deleted correctly").build()
+        } catch (Exception e) {
+            return Response.status(404).entity("User with id: ${id} not found").build()
         }
     }
 
-    /*
-    //@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    //@ResponseBody
-    ResponseEntity addUser(String name, String firstSurname, String email, String password) {
-        User.withTransaction {
-            User u = new User(name: name, firstSurname: firstSurname, email: email, password: password).save()
-            return new ResponseEntity( u ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST)
+    @POST
+    @Path("/add")
+    @Produces(APPLICATION_JSON)
+    Response addUser(
+            @FormParam("name") String name, @FormParam("firstSurname") String firstSurname,
+            @FormParam("secondSurname") String secondSurname, @FormParam("email") String email,
+            @FormParam("phone") String phone, @FormParam("companyId") String companyId,
+            @FormParam("password") String password, @FormParam("emailValidated") Boolean emailValidated,
+            @FormParam("accountLocked") Boolean accountLocked, @FormParam("passwordExpired") Boolean passwordExpired,
+            @FormParam("organizationsUrl") String organizationsUrl
+    ) {
+        User user = new User(
+                name: name, firstSurname: firstSurname,
+                secondSurname: secondSurname, email: email,
+                phone: phone, companyId: companyId,
+                password: password, emailValidated: emailValidated,
+                accountLocked: accountLocked, passwordExpired: passwordExpired,
+                organizationsUrl: organizationsUrl
+        )
+
+        try {
+            user.save(flush: true, insert: true, validate: true, failOnError: true)
+            return Response.status(201).entity("User created correctly").build();
+        } catch (Exception e) {
+            e.printStackTrace()
+            return Response.status(406).entity(e.printStackTrace()).build();
         }
-    }*/
+    }
+
+    @PUT
+    @Path("/update/{id}")
+    @Produces(APPLICATION_JSON)
+    Response updateUserById(
+            @PathParam("id") Integer id,
+            @FormParam("name") String name, @FormParam("firstSurname") String firstSurname,
+            @FormParam("secondSurname") String secondSurname, @FormParam("email") String email,
+            @FormParam("phone") String phone, @FormParam("companyId") String companyId,
+            @FormParam("password") String password, @FormParam("emailValidated") Boolean emailValidated,
+            @FormParam("accountLocked") Boolean accountLocked, @FormParam("passwordExpired") Boolean passwordExpired,
+            @FormParam("organizationsUrl") String organizationsUrl
+    ) {
+        User user = new User(
+                id: id,
+                name: name, firstSurname: firstSurname,
+                secondSurname: secondSurname, email: email,
+                phone: phone, companyId: companyId,
+                password: password, emailValidated: emailValidated,
+                accountLocked: accountLocked, passwordExpired: passwordExpired,
+                organizationsUrl: organizationsUrl
+        )
+
+        try {
+            user.save(flush: true, insert: false, validate: false, failOnError: true)
+            return Response.status(200).entity("User updated correctly").build();
+        } catch (Exception e) {
+            e.printStackTrace()
+            return Response.status(406).entity(e.printStackTrace()).build();
+        }
+    }
 }

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class JerseyConfig extends ResourceConfig {
 
-    static final String REST_ROOT = "/rest/oso/*"
+    static final String REST_ROOT = "/rest/oso-api/*"
 
     @Bean
     public ServletRegistrationBean jerseyServlet() {

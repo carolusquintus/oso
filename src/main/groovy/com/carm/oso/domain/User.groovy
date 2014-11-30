@@ -44,7 +44,8 @@ class User implements Serializable {
     static mapping = {
         table "user_oso"
         version false
-        id column: "id"
+        id generator: "sequence",
+                params: [column: "id"]
         name column: 'name'
         firstSurname column: 'first_surname'
         secondSurname column: 'second_surname'
@@ -59,9 +60,18 @@ class User implements Serializable {
     }
 
     static constraints = {
-        name blank:false
-        firstSurname blank:false
-        email blank:false
-        password blank:false
+        name blank: false, nullable: false
+        firstSurname blank: false, nullable: false
+        email blank: false, nullable: false
+        password blank: false, nullable: false
+
+        secondSurname blank: true, nullable: true
+        phone blank: true, nullable: true
+        companyId blank: true, nullable: true
+        emailValidated blank: true, nullable: true
+        accountLocked blank: true, nullable: true
+        passwordExpired blank: true, nullable: true
+        organizationsUrl blank: true, nullable: true
+
     }
 }
