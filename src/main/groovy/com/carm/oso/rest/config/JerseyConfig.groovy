@@ -16,19 +16,18 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class JerseyConfig extends ResourceConfig {
 
-    static final String REST_ROOT = "/rest/oso-api/*"
+    static final String REST_ROOT = "/rest/api/*"
+
+    public JerseyConfig() {
+        register(RequestContextFilter.class)
+        packages("com.carm.oso")
+    }
 
     @Bean
     public ServletRegistrationBean jerseyServlet() {
         ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), REST_ROOT)
-        registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyServletConfig.class.getName())
+        registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyConfig.class.getName())
+        registration.setLoadOnStartup(1)
         return registration
-    }
-
-    public static class JerseyServletConfig extends ResourceConfig {
-        public JerseyServletConfig() {
-            register(RequestContextFilter.class)
-            packages("com.carm.oso")
-        }
     }
 }

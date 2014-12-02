@@ -30,7 +30,7 @@ import static javax.ws.rs.core.MediaType.TEXT_HTML
  * @author carolus
  */
 @Path("/user")
-@Api(value = "/user", description = "Manage users")
+@Api(value = "user", description = "Manage users")
 class UserController {
 
     @GET
@@ -93,10 +93,10 @@ class UserController {
 
         try {
             user.save(flush: true, insert: true, validate: true, failOnError: true)
-            return Response.status(201).entity("User created correctly").build();
+            return Response.status(201).entity("User created correctly").build()
         } catch (Exception e) {
             e.printStackTrace()
-            return Response.status(406).entity(e.printStackTrace()).build();
+            return Response.status(406).entity(e.printStackTrace()).build()
         }
     }
 
@@ -124,10 +124,10 @@ class UserController {
 
         try {
             user.save(flush: true, insert: false, validate: false, failOnError: true)
-            return Response.status(200).entity("User updated correctly").build();
+            return Response.status(200).entity("User updated correctly").build()
         } catch (Exception e) {
             e.printStackTrace()
-            return Response.status(406).entity(e.printStackTrace()).build();
+            return Response.status(406).entity(e.printStackTrace()).build()
         }
     }
 }
